@@ -12,4 +12,4 @@ router.get("/detail/:inv_id", invController.buildByInventoryId)
 // Route for intentional error
 router.get("/cause-error", invController.causeError)
 
-module.exports = router;
+module.exports = router

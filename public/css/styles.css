@@ -14,14 +14,14 @@
 }
 
 .siteName a {
-  color: rgb(0, 0, 60);
+  color: #0056b3;
   font-size: 2rem;
   text-decoration: none;
   padding: 2rem;
 }
 
 #tools a {
-  color: rgb(0, 0, 60);
+  color: #0056b3;
   font-size: 1.25rem;
   text-decoration: none;
   padding: 2rem;
@@ -31,14 +31,14 @@ nav ul {
   display: flex;
   justify-content: space-around;
   list-style: none;
-  color: white;
-  background-color: rgb(0, 0, 60);
+  color: black;
+  background-color: #0056b3;
   margin: 0;
   padding: 0.5rem;
 }
 
 nav ul li a {
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
@@ -88,8 +88,8 @@ nav ul li a {
 #cards section {
   margin: 1rem auto;
   border-radius: 8px;
-  background-color: rgb(0, 0, 60);
-  color: white;
+  background-color: #0056b3;
+  color: black;
   width: 90%;
 }
 
@@ -135,10 +135,135 @@ nav ul li a {
 
 #upgrades figure figcaption a {
   text-decoration: none;
-  color: rgb(0, 0, 60);
+  color: #0056b3;
   text-align: center;
   align-content: center;
   padding-top: 0.25rem;
+}
+
+.login-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-form label {
+  font-weight: 600;
+  color: #333;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+}
+
+.login-form input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.login-form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+.login-extra {
+  max-width: 400px;
+  margin: 1rem auto;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.login-extra a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-extra a:hover {
+  text-decoration: underline;
+}
+
+section {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+section h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  background-color: #fff;
+}
+
+li a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+li a:hover {
+  text-decoration: underline;
+}
+
+img {
+  width: 100%;
+  max-width: 600px;
+  display: block;
+  margin: 0 auto 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+p {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+  color: #333;
+}
+
+strong {
+  color: #333;
 }
 
 @media screen and (min-width: 501px) {
