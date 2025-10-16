@@ -266,6 +266,117 @@ strong {
   color: #333;
 }
 
+#manageInventorySection {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+#manageInventorySection form#classificationForm {
+  margin-bottom: 15px;
+}
+
+#manageInventorySection select#classification_id {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  min-width: 200px;
+}
+
+#manageInventorySection table#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+}
+
+#manageInventorySection table#inventoryDisplay th,
+#manageInventorySection table#inventoryDisplay td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#manageInventorySection table#inventoryDisplay th {
+  background-color: #0056b3;
+  color: white;
+}
+
+#manageInventorySection table#inventoryDisplay tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#manageInventorySection table#inventoryDisplay tr:hover {
+  background-color: #e0f7fa;
+}
+
+#manageInventorySection table#inventoryDisplay a {
+  text-decoration: none;
+  color: #007BFF;
+}
+
+#manageInventorySection table#inventoryDisplay a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+#updateForm {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f9f9f9; /* soft light background */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#updateForm .form-group {
+  margin-bottom: 1rem;
+}
+
+#updateForm label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+#updateForm input[type="text"],
+#updateForm input[type="number"],
+#updateForm textarea,
+#updateForm select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+#updateForm textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+#updateForm button[type="submit"] {
+  background-color: #0077cc;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#updateForm button[type="submit"]:hover {
+  background-color: #005fa3;
+}
+
 @media screen and (min-width: 501px) {
   #cards {
     display: grid;
