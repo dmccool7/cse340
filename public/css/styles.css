@@ -24,7 +24,7 @@
   color: #0056b3;
   font-size: 1.25rem;
   text-decoration: none;
-  padding: 2rem;
+  padding: 0.25rem;
 }
 
 nav ul {
@@ -327,7 +327,7 @@ strong {
   max-width: 700px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background-color: #f9f9f9; /* soft light background */
+  background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);

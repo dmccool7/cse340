@@ -16,18 +16,27 @@ router.get("/detail/:inv_id", invController.buildByInventoryId)
 router.get("/cause-error", invController.causeError)
 
 // route for management view
-router.get("/", utilities.handleErrors(invController.buildManagement))
+router.get(
+  "/",
+  utilities.checkEmployeeOrAdmin,
+  utilities.handleErrors(invController.buildManagement)
+)
 
 /* ****************************************
 *  Add Classification Routes
 *****************************************/
 
 // Show the Add Classification form
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
+router.get(
+  "/add-classification",
+  utilities.checkEmployeeOrAdmin,
+  utilities.handleErrors(invController.buildAddClassification)
+)
 
 // Process Add Classification form
 router.post(
   "/add-classification",
+  utilities.checkEmployeeOrAdmin,
   invValidate.classificationRules(),
   invValidate.checkClassificationData,
   utilities.handleErrors(invController.addClassification)
@@ -38,11 +47,16 @@ router.post(
  **************************************** */
 
 // Show the Add Inventory form
-router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory))
+router.get(
+  "/add-inventory",
+  utilities.checkEmployeeOrAdmin,
+  utilities.handleErrors(invController.buildAddInventory)
+)
 
 // Process Add Inventory form
 router.post(
   "/add-inventory",
+  utilities.checkEmployeeOrAdmin,
   invValidate.inventoryRules(),
   invValidate.checkInventoryData,
   utilities.handleErrors(invController.addInventory)
@@ -53,14 +67,16 @@ router.post(
 //
 router.get(
   "/getInventory/:classification_id",
+  utilities.checkEmployeeOrAdmin,
   utilities.handleErrors(invController.getInventoryJSON)
-);
+)
 
 /* ***************************************
 *  Show Edit Inventory Form
 *****************************************/
 router.get(
   "/edit/:inv_id",
+  utilities.checkEmployeeOrAdmin,
   utilities.handleErrors(invController.buildEditInventory)
 )
 
@@ -69,18 +85,21 @@ router.get(
 *****************************************/
 router.post(
   "/update",
+  utilities.checkEmployeeOrAdmin,
   utilities.handleErrors(invController.updateInventory)
 )
 
 // Deliver the Delete Confirmation View
 router.get(
   "/delete/:inv_id",
+  utilities.checkEmployeeOrAdmin,
   utilities.handleErrors(invController.buildDeleteInventory)
 )
 
 // Process the Delete Inventory Request
 router.post(
   "/delete/",
+  utilities.checkEmployeeOrAdmin,
   utilities.handleErrors(invController.deleteInventory)
 )
 

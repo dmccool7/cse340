@@ -17,6 +17,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const jwt = require("jsonwebtoken")
 
 /* ***********************
  * Middleware
@@ -33,7 +34,7 @@ const cookieParser = require("cookie-parser")
 }))
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -45,12 +46,28 @@ app.use(function(req, res, next){
 app.use(cookieParser())
 app.use(utilities.checkJWTToken)
 
+app.use((req, res, next) => {
+  const token = req.cookies.jwt
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+      res.locals.loggedin = true
+      res.locals.accountData = decoded
+    } catch (err) {
+      res.locals.loggedin = false
+    }
+  } else {
+    res.locals.loggedin = false
+  }
+  next()
+})
+
 /* ***********************
  * View Engine and Templates
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // not at views root
+app.set("layout", "./layouts/layout")
 
 /* ***********************
  * Routes

@@ -113,4 +113,106 @@ validate.checkLoginData = async (req, res, next) => {
   next()
 }
 
-module.exports = validate
+/* ***************************
+ *  Validation rules for update
+ * ************************** */
+validate.updateAccountRules = () => {
+  return [
+    body("account_firstname")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("First name is required."),
+    body("account_lastname")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("Last name is required."),
+    body("account_email")
+      .isEmail()
+      .withMessage("A valid email is required.")
+      .custom(async (value, { req }) => {
+        const existingAccount = await accountModel.getAccountByEmail(value)
+        if (existingAccount && existingAccount.account_id != req.body.account_id) {
+          throw new Error("That email already exists. Please use another.")
+        }
+      }),
+  ]
+}
+
+/* ***************************
+ *  Validation rules for password
+ * ************************** */
+validate.passwordRules = () => {
+  return [
+    body("account_password")
+      .isStrongPassword({
+        minLength: 12,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+      .withMessage("Password must be at least 12 characters and include uppercase, number, and special character."),
+  ]
+}
+
+/* ***************************
+ *  Handle validation results for account info update
+ * ************************** */
+validate.checkUpdateData = async (req, res, next) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    const account_id = parseInt(req.body.account_id)
+    // Fetch full account info from DB
+    const accountData = await accountModel.getAccountById(account_id)
+    let nav = await require("../utilities").getNav()
+    res.render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: errors.array(),
+      notice: req.flash("notice"),
+      accountData, // full data for template
+    })
+    return
+  }
+  next()
+}
+
+/* ***************************
+ *  Handle validation results for password update
+ * ************************** */
+validate.checkPasswordData = async (req, res, next) => {
+  const errors = validationResult(req)
+  const account_id = parseInt(req.body.account_id)
+  if (!account_id) {
+    req.flash("notice", "Invalid account ID.")
+    return res.redirect("/account/")
+  }
+  const accountData = await accountModel.getAccountById(account_id)
+  if (!accountData) {
+    req.flash("notice", "Account not found.")
+    return res.redirect("/account/")
+  }
+  if (!errors.isEmpty()) {
+    let nav = await require("../utilities").getNav()
+    res.render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: errors.array(),
+      notice: req.flash("notice"),
+      accountData, // full account info for template
+    })
+    return
+  }
+  next()
+}
+
+module.exports = { 
+  registrationRules: validate.registrationRules,
+  checkRegData: validate.checkRegData,
+  loginRules: validate.loginRules,
+  checkLoginData: validate.checkLoginData,
+  updateAccountRules: validate.updateAccountRules,
+  passwordRules: validate.passwordRules,
+  checkUpdateData: validate.checkUpdateData,
+  checkPasswordData: validate.checkPasswordData
+}
