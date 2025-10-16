@@ -1,0 +1,42 @@
+<!-- content heading -->
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else { %>
+  <h1>Favorites</h1>
+<% } %>
+
+<!-- message -->
+<% if (notice && notice.length > 0) { %>
+    <div class="notice">
+        <%= notice %>
+    </div>
+<% } %>
+
+<!-- errors -->
+<% if (errors && errors.length > 0) { %>
+    <div class="errors">
+      <% errors.forEach(function(error){ %>
+        <p><%= error.msg %></p>
+      <% }) %>
+    </div>
+<% } %>
+
+<section class="favorites-list">
+  <% if (favorites && favorites.length > 0) { %>
+    <ul class="favorites-items">
+      <% favorites.forEach(fav => { %>
+        <li>
+          <h2><%= fav.inv_make %> <%= fav.inv_model %></h2>
+          <p>Price: $<%= fav.inv_price %></p>
+          
+          <form action="/favorites/toggle" method="post">
+            <input type="hidden" name="inv_id" id="inv_id" value="<%= fav.inv_id %>">
+            <button type="submit">Remove from Favorites ❤️</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>You haven't favorited any items yet.</p>
+  <% } %>
+</section>

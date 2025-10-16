@@ -6,6 +6,8 @@ const invCont = {}
 const DEFAULT_IMAGE = "/images/vehicles/no-image.png"
 const DEFAULT_THUMB = "/images/vehicles/no-image-tn.png"
 
+const favoritesModel = require("../models/favorites-model");
+
 /* ***************************
  *  Build inventory by classification view
  * ************************** */
@@ -41,13 +43,38 @@ invCont.buildByInventoryId = async function (req, res, next) {
     let nav = await utilities.getNav()
     const detail = utilities.buildVehicleDetailHTML(vehicleData)
 
+    let userFavorites = []
+    if (res.locals.accountData) {
+      try {
+        const account_id = res.locals.accountData.account_id
+        console.log("Logged in as account_id:", account_id)
+
+        userFavorites = await favoritesModel.getFavoriteIds(account_id)
+        console.log("Favorites loaded:", userFavorites)
+
+        if (!Array.isArray(userFavorites)) userFavorites = []
+        else userFavorites = userFavorites.map(id => parseInt(id, 10)).filter(Boolean)
+      } catch (favError) {
+        console.error("FAVORITES ERROR in buildByInventoryId:")
+        console.error(favError.message)
+        console.error(favError.stack)
+        userFavorites = []
+      }
+    } else {
+      console.log("No accountData — not logged in.")
+    }
+
     res.render("./inventory/detail", {
       title: `${vehicleData.inv_make} ${vehicleData.inv_model}`,
       nav,
       detail,
-      errors: null
+      errors: null,
+      userFavorites,
+      accountData: res.locals.accountData || null,
+      inv_id: vehicleData.inv_id
     })
   } catch (error) {
+    console.error("UNCAUGHT ERROR in buildByInventoryId:", error)
     next(error)
   }
 }

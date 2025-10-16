@@ -377,6 +377,119 @@ strong {
   background-color: #005fa3;
 }
 
+.account-links a {
+  background-color: #1f78b4;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.account-links a:hover {
+  background-color: #166494;
+}
+
+.favorite-form {
+  margin-top: 15px;
+}
+
+.favorite-btn {
+  background-color: #ffeded;
+  color: #005fa3;
+  border: 1px solid #005591;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.favorite-btn:hover {
+  background-color: #014c81;
+  color: #fff;
+}
+
+.favorite-btn.favorited {
+  background-color: #005fa3;
+  color: #fff;
+  border: 1px solid #003f6b;
+}
+
+.favorite-btn.favorited:hover {
+  background-color: #013961; 
+}
+
+.account-links-container {
+  margin: 20px 0;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#inv-display li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#inv-display li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+#inv-display li img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.namePrice {
+  padding: 0.75rem 1rem;
+}
+
+.namePrice h2 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.namePrice h2 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.namePrice h2 a:hover {
+  color: #007bff;
+}
+
+.namePrice span {
+  font-weight: bold;
+  color: #444;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.namePrice hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 0.5rem 0;
+}
+
 @media screen and (min-width: 501px) {
   #cards {
     display: grid;

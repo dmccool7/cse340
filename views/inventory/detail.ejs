@@ -1,8 +1,8 @@
 <!-- content heading -->
 <% if (title) { %>
-<h1><%= title %></h1>
+  <h1><%= title %></h1>
 <% } else { %>
-  <% res.redirect('/') %>
+  <h1>Vehicle Details</h1>
 <% } %>
 
 <!-- message -->
@@ -10,3 +10,27 @@
 
 <!-- vehicle detail display -->
 <%- detail %>
+
+<!-- favorites -->
+<% if (accountData) { %>
+    <!-- Favorite button -->
+    <form action="/favorites/toggle" method="post" class="favorite-form">
+      <input type="hidden" name="inv_id" value="<%= inv_id %>">
+      <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+
+      <% if (userFavorites.includes(Number(inv_id))) { %>
+        <!-- already favorited -->
+        <button type="submit" class="favorite-btn favorited" title="Remove from favorites">
+          ❤️ Remove Favorite
+        </button>
+      <% } else { %>
+        <!-- not favorited -->
+        <button type="submit" class="favorite-btn" title="Add to favorites">
+          🤍 Add to Favorites
+        </button>
+      <% } %>
+    </form>
+  <% } else { %>
+    <!-- Prompt to log in to favorite -->
+    <p><a href="/account/login">Log in</a> to add this vehicle to your favorites.</p>
+  <% } %>

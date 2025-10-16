@@ -19,6 +19,12 @@ const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const jwt = require("jsonwebtoken")
 
+// debug: log incoming requests
+app.use((req, res, next) => {
+  console.log(`>> REQ ${req.method} ${req.originalUrl}`)
+  next()
+})
+
 /* ***********************
  * Middleware
  * ************************/
@@ -76,9 +82,11 @@ app.use(static)
 // Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
-app.use("/inv", inventoryRoute)
+app.use("/inv", require("./routes/inventoryRoute"))
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
+// Favorites
+app.use("/favorites", require("./routes/favoritesRoutes"))
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
@@ -91,7 +99,10 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
+  console.error(err.stack || err)
+  let message
+  if (err.status === 404) message = err.message
+  else message = 'Oh no! There was a crash. Maybe try a different route?'
   res.render("errors/error", {
     title: err.status || 'Server Error',
     message,
@@ -105,6 +116,27 @@ app.use(async (err, req, res, next) => {
  *************************/
 const port = process.env.PORT
 const host = process.env.HOST
+
+// DEBUG: detailed routes dump
+function dumpRoutes() {
+  console.log("---- Registered routes ----")
+  app._router.stack.forEach(layer => {
+    if (layer.route) {
+      const methods = Object.keys(layer.route.methods).map(m => m.toUpperCase()).join(",")
+      console.log(methods.padEnd(7), layer.route.path)
+    } else if (layer.name === 'router' && layer.handle && layer.handle.stack) {
+      layer.handle.stack.forEach(r => {
+        if (r.route) {
+          const methods = Object.keys(r.route.methods).map(m => m.toUpperCase()).join(",")
+          // attempt to show mount path for the parent if available
+          console.log(methods.padEnd(7), r.route.path)
+        }
+      })
+    }
+  })
+  console.log("---------------------------")
+}
+dumpRoutes()
 
 /* ***********************
  * Log statement to confirm server operation

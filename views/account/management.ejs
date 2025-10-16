@@ -25,11 +25,17 @@
   <h2>Welcome <%= account_firstname %></h2>
 <% } %>
 
-<p>
-  <a href="/account/update/<%= account_id %>">Update Account Information</a>
-</p>
+<div class="account-links-container">
+  <p class="account-links">
+    <a href="/account/update/<%= account_id %>">Update Account Information</a>
+  </p>
 
-<% if (account_type === "Employee" || account_type === "Admin") { %>
-    <h3>Inventory Management</h3>
-    <p><a href="/inv/">Manage Inventory</a></p>
-<% } %>
+  <% if (account_type === "Employee" || account_type === "Admin") { %>
+      <h3>Inventory Management</h3>
+      <p class="account-links"><a href="/inv/">Manage Inventory</a></p>
+  <% } %>
+
+  <% if (accountData) { %>
+    <p class="account-links"><a href="/favorites">My Favorites ❤️</a></p>
+  <% } %>
+</div>

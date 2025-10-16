@@ -6,6 +6,8 @@ const utilities = require("../utilities")
 const { body, validationResult } = require("express-validator")
 const invValidate = require("../utilities/inv-validation")
 
+console.log("Loaded inventoryRoute:", __filename)
+
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
